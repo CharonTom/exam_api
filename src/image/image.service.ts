@@ -40,6 +40,14 @@ export class ImageService {
   }
 
   async findByHash(hash: string): Promise<Image | null> {
-    return this.imageRepository.findOne({ where: { hash } });
+    return this.imageRepository.findOne({
+      where: { hash },
+      relations: ['owner'],
+    });
+  }
+
+  async incrementVerificationCount(image: Image): Promise<void> {
+    image.verificationCount += 1;
+    await this.imageRepository.save(image);
   }
 }

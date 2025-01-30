@@ -35,4 +35,7 @@ export class Image {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @Column({ default: 0 })
+  verificationCount: number;
 }

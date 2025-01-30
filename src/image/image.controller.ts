@@ -63,19 +63,25 @@ export class ImageController {
         certified: false,
       };
     }
+    // On incrémente le nombre de vérif pour voir si l'image à du succès
+    await this.imageService.incrementVerificationCount(existingImage);
 
     // Retourner si l’image est certifiée ou non
     if (existingImage.certificate) {
       return {
         message: "L'image est certifiée",
-        certified: true,
-        certification: existingImage.certificate,
+        verificationCount: existingImage.verificationCount,
+        owner: {
+          name: existingImage.owner.firstName,
+          email: existingImage.owner.email,
+        },
+        certificationData: existingImage.certificate,
       };
     } else {
       return {
-        message: "L'image existe, mais elle n'est pas certifiée",
-        certified: false,
-        certification: null,
+        message: "L'image n'est pas certifiée",
+        verificationCount: existingImage.verificationCount,
+        certificationData: existingImage.certificate,
       };
     }
   }
