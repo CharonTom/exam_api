@@ -8,9 +8,9 @@ Suivez ces étapes pour installer et configurer le projet.
 
 ### Cloner le repo où prenez le en téléchargeant le zip
 
-### faite npm install pour installer les dépendance
+### Faites "npm install" à la racine du projet pour installer les dépendances
 
-### faite un fichier .env sous cette forme :
+### Faites un fichier .env à la racine du projet sous cette forme :
 
 - JWT_SECRET='monsuperstrongpassword'
 - ACCESS_TOKEN_VALIDITY_DURATION_IN_SEC="56s"
@@ -25,8 +25,8 @@ Suivez ces étapes pour installer et configurer le projet.
 Assurez-vous que votre serveur de base de données (MySQL) est en cours d'exécution.
 Puis exécutez la migration avec :
 
-npm run migration:run
-npm run migration:generate
+- npm run migration:run
+- npm run migration:generate
 
 ### Lancer l'application
 
