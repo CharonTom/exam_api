@@ -72,7 +72,8 @@ export class ImageController {
         message: "L'image est certifiée",
         verificationCount: existingImage.verificationCount,
         owner: {
-          name: existingImage.owner.firstName,
+          firstName: existingImage.owner.firstName,
+          lastName: existingImage.owner.lastName,
           email: existingImage.owner.email,
         },
         certificationData: existingImage.certificate,
