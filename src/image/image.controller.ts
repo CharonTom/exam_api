@@ -79,11 +79,9 @@ export class ImageController {
         certificationData: existingImage.certificate,
       };
     } else {
-      return {
-        message: "L'image n'est pas certifiée",
-        verificationCount: existingImage.verificationCount,
-        certificationData: existingImage.certificate,
-      };
+      throw new NotFoundException(
+        'Pas de certification connu pour cette image',
+      );
     }
   }
 
