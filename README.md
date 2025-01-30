@@ -17,8 +17,8 @@ ACCESS_TOKEN_VALIDITY_DURATION_IN_SEC="56s"
 DB_HOST="localhost"
 DB_PORT="3306"
 DB_NAME="exam_api"
-DB_USERNAME="root"
-DB_PASSWORD="root"
+DB_USERNAME="exemple"
+DB_PASSWORD="exemple"
 
 ### Configurer et migrer la base de données
 
