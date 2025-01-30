@@ -34,9 +34,9 @@ npm run start:dev
 
 ### Technologies utilisées
 
-NestJS (Framework Node.js en ts)
-TypeORM (ORM pour la base de données)
-MySQL
-JWT (Authentification avec passport)
+- NestJS (Framework Node.js en ts)
+- TypeORM (ORM pour la base de données)
+- MySQL
+- JWT (Authentification avec passport)
 
 Auteur : Tom Charon
