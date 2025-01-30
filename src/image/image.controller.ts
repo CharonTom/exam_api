@@ -19,8 +19,6 @@ import { UpdateImageDto } from './dto/update-image.dto';
 import { diskStorage } from 'multer';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Public } from 'src/auth/decorators/public.decorator';
-import * as fs from 'fs';
-import * as crypto from 'crypto';
 
 @Controller('image')
 export class ImageController {
@@ -30,7 +28,7 @@ export class ImageController {
     private readonly userService: UsersService,
   ) {}
 
-  // Route Public afin de voir si le fichier est bien certifié
+  // Route Public afin de voir si une image est bien certifiée
   @Public()
   @Post('check-certif')
   @UseInterceptors(
@@ -126,6 +124,6 @@ export class ImageController {
       fileName: file.filename,
     };
 
-    // il faut maintenant créer un certificat pour cette image
+    // il faut maintenant Modifier l’image par stéganographie
   }
 }
