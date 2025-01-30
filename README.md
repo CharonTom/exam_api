@@ -6,7 +6,7 @@ Une API développée par Tom Charon avec **NestJS** et **TypeORM**
 
 Suivez ces étapes pour installer et configurer le projet.
 
-### Cloner le repo où prenez le en téléchargeant le zip
+### Cloner le repo ou télécharger le via le zip
 
 ### Faites "npm install" à la racine du projet pour installer les dépendances
 
