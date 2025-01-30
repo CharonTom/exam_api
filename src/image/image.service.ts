@@ -50,4 +50,11 @@ export class ImageService {
     image.verificationCount += 1;
     await this.imageRepository.save(image);
   }
+
+  async findAllByOwner(userId: string): Promise<Image[]> {
+    return this.imageRepository.find({
+      where: { owner: { id: userId as any } }, // Je sais, any c'est pas bien, mais c'était pour faire tourner le endpoint dans le temps qui m'était impartit
+      relations: ['owner'],
+    });
+  }
 }

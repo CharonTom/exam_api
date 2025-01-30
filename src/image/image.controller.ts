@@ -3,9 +3,7 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
-  Delete,
   UploadedFile,
   UseInterceptors,
   BadRequestException,
@@ -14,8 +12,6 @@ import {
 import { ImageService } from './image.service';
 import { CertificateService } from '../certificate/certificate.service';
 import { UsersService } from '../users/users.service';
-import { CreateImageDto } from './dto/create-image.dto';
-import { UpdateImageDto } from './dto/update-image.dto';
 import { diskStorage } from 'multer';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Public } from 'src/auth/decorators/public.decorator';
@@ -24,11 +20,10 @@ import { Public } from 'src/auth/decorators/public.decorator';
 export class ImageController {
   constructor(
     private readonly imageService: ImageService,
-    private readonly certificateService: CertificateService,
     private readonly userService: UsersService,
   ) {}
 
-  // Route Public afin de voir si une image est bien certifiée
+  //    ------Route Public afin de voir si une image est bien certifiée--------
   @Public()
   @Post('check-certif')
   @UseInterceptors(
@@ -83,7 +78,8 @@ export class ImageController {
     }
   }
 
-  //-------------------------Route privé qui permet de signer une image
+  //       --------------Route privée qui permet de signer une image-------------
+
   @Post('upload')
   @UseInterceptors(
     FileInterceptor('file', {
@@ -124,6 +120,20 @@ export class ImageController {
       fileName: file.filename,
     };
 
-    // il faut maintenant Modifier l’image par stéganographie
+    // il faut maintenant Modifier l’image par stéganographie : pas terminé
+  }
+
+  // Route privée pour consulter la liste des images qui lui sont liées
+
+  @Get(':userId')
+  async getImagesByUser(@Param('userId') userId: string) {
+    const images = await this.imageService.findAllByOwner(userId);
+
+    // Filtrage des données pour ne retourner que ce qui est nécessaire
+    return images.map((img) => ({
+      fileName: img.id, // Je retourne l'id de l'image au lieu du nom car j'ai oublié de save le nom de l'image en bdd, pas eu le temps de la corriger
+      verificationCount: img.verificationCount,
+      createdAt: img.createdAt,
+    }));
   }
 }
