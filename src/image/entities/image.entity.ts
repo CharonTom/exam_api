@@ -23,9 +23,6 @@ export class Image {
   @Column()
   hash: string;
 
-  @Column({ default: false })
-  isSigned: boolean;
-
   @ManyToOne(() => User, (user) => user.images)
   owner: User;
 

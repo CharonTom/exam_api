@@ -1,26 +1,31 @@
 import { Injectable } from '@nestjs/common';
 import { CreateImageDto } from './dto/create-image.dto';
 import { UpdateImageDto } from './dto/update-image.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Image } from './entities/image.entity';
+import * as crypto from 'crypto';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class ImageService {
-  create(createImageDto: CreateImageDto) {
-    return 'This action adds a new image';
+  constructor(
+    @InjectRepository(Image)
+    private readonly imageRepository: Repository<Image>,
+  ) {}
+
+  async createImage(data: CreateImageDto): Promise<Image> {
+    const newImage = this.imageRepository.create(data);
+    return this.imageRepository.save(newImage);
   }
 
-  findAll() {
-    return `This action returns all image`;
+  generateHash(file: Express.Multer.File): string {
+    if (!file || !file.buffer) {
+      throw new Error('Le fichier est invalide ou manquant.');
+    }
+    return crypto.createHash('sha256').update(file.buffer).digest('hex');
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} image`;
-  }
-
-  update(id: number, updateImageDto: UpdateImageDto) {
-    return `This action updates a #${id} image`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} image`;
+  async findByHash(hash: string): Promise<Image | null> {
+    return this.imageRepository.findOne({ where: { hash } });
   }
 }
