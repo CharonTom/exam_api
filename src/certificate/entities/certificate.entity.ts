@@ -5,6 +5,7 @@ import {
   ManyToOne,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToOne,
 } from 'typeorm';
 import { User } from 'src/users/users.entity';
 import { Image } from 'src/image/entities/image.entity';
@@ -14,7 +15,7 @@ export class Certificate {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => Image, (image) => image.certificates)
+  @OneToOne(() => Image, (image) => image.certificate)
   image: Image;
 
   @ManyToOne(() => User, (user) => user.certificates)

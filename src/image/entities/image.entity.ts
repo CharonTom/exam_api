@@ -6,6 +6,8 @@ import {
   OneToMany,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToOne,
+  JoinColumn,
 } from 'typeorm';
 import { User } from 'src/users/users.entity';
 import { Certificate } from 'src/certificate/entities/certificate.entity';
@@ -27,8 +29,9 @@ export class Image {
   @ManyToOne(() => User, (user) => user.images)
   owner: User;
 
-  @OneToMany(() => Certificate, (certificate) => certificate.image)
-  certificates: Certificate[];
+  @OneToOne(() => Certificate, { cascade: true, nullable: true })
+  @JoinColumn()
+  certificate: Certificate;
 
   @CreateDateColumn()
   createdAt: Date;
