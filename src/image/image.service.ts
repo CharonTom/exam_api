@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { CreateImageDto } from './dto/create-image.dto';
-import { UpdateImageDto } from './dto/update-image.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Image } from './entities/image.entity';
 import * as crypto from 'crypto';
@@ -19,6 +18,9 @@ export class ImageService {
     return this.imageRepository.save(newImage);
   }
 
+  // uploadImage() utilise diskStorage, On doit lire le fichier depuis le disque (file.path).
+  // checkCertif() utilise memoryStorage (pas de sauvegarde d'image on veut seulement lire dans le fichier), On doit lire le buffer (file.buffer).
+  // Si on ne gère pas les deux, l'un des deux endpoints va planter.
   generateHash(file: Express.Multer.File): string {
     if (!file) {
       throw new Error('Le fichier est invalide ou manquant.');

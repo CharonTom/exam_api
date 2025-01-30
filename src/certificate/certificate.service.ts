@@ -11,7 +11,7 @@ export class CertificateService {
     private readonly certificateRepository: Repository<Certificate>,
   ) {}
 
-  async createCertificate(data: Partial<Certificate>): Promise<Certificate> {
+  async createCertificate(data: CreateCertificateDto): Promise<Certificate> {
     const newCert = this.certificateRepository.create(data);
     return this.certificateRepository.save(newCert);
   }

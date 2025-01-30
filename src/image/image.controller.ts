@@ -30,7 +30,7 @@ export class ImageController {
     private readonly userService: UsersService,
   ) {}
 
-  //------------------Route Public à fin de voir si le fichier est bien signé si oui retourner le seau
+  // Route Public afin de voir si le fichier est bien certifié
   @Public()
   @Post('check-certif')
   @UseInterceptors(
@@ -54,7 +54,7 @@ export class ImageController {
     // Utilisation du service pour générer le hash
     const fileHash = this.imageService.generateHash(file);
 
-    // 🔍 Vérifier si l’image existe en base via son hash
+    // Puis on vérifie si le hash existe en base de données
     const existingImage = await this.imageService.findByHash(fileHash);
 
     if (!existingImage) {
@@ -65,13 +65,19 @@ export class ImageController {
     }
 
     // Retourner si l’image est certifiée ou non
-    return {
-      message: existingImage.certificate
-        ? "L'image est certifiée"
-        : "L'image existe, mais elle n'est pas certifiée",
-      certified: !!existingImage.certificate,
-      certification: existingImage.certificate || null,
-    };
+    if (existingImage.certificate) {
+      return {
+        message: "L'image est certifiée",
+        certified: true,
+        certification: existingImage.certificate,
+      };
+    } else {
+      return {
+        message: "L'image existe, mais elle n'est pas certifiée",
+        certified: false,
+        certification: null,
+      };
+    }
   }
 
   //-------------------------Route privé qui permet de signer une image
@@ -114,5 +120,7 @@ export class ImageController {
       filePath: file.path,
       fileName: file.filename,
     };
+
+    // il faut maintenant créer un certificat pour cette image
   }
 }
