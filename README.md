@@ -12,13 +12,13 @@ Suivez ces étapes pour installer et configurer le projet.
 
 ### faite un fichier .env sous cette forme :
 
-JWT_SECRET='monsuperstrongpassword'
-ACCESS_TOKEN_VALIDITY_DURATION_IN_SEC="56s"
-DB_HOST="localhost"
-DB_PORT="3306"
-DB_NAME="exam_api"
-DB_USERNAME="exemple"
-DB_PASSWORD="exemple"
+- JWT_SECRET='monsuperstrongpassword'
+- ACCESS_TOKEN_VALIDITY_DURATION_IN_SEC="56s"
+- DB_HOST="localhost"
+- DB_PORT="3306"
+- DB_NAME="exam_api"
+- DB_USERNAME="exemple"
+- DB_PASSWORD="exemple"
 
 ### Configurer et migrer la base de données
 
