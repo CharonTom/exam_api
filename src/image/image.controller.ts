@@ -75,7 +75,6 @@ export class ImageController {
   }
 
   //-------------------------Route privé qui permet de signer une image
-  @Public()
   @Post('upload')
   @UseInterceptors(
     FileInterceptor('file', {
